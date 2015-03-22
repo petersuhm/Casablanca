@@ -19,7 +19,12 @@ $ composer require wppusher/casablanca
 
 ## Usage
 
-_Coming soon_.
+```php
+class AwesomeWordPressPlugin extends Casablanca
+{
+    // ...
+}
+```
 
 ## Testing
 
