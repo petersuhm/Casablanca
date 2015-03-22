@@ -1,17 +1,18 @@
 {
-    "name": "league/:package_name",
-    "description": ":package_description",
+    "name": "wppusher/casablanca",
+    "description": "A framework for developing WordPress packages.",
     "keywords": [
-        "league",
-        ":package_name"
+        "wppusher",
+        "casablanca",
+        "wordpress"
     ],
-    "homepage": "https://github.com/thephpleague/:package_name",
+    "homepage": "https://github.com/wppusher/Casablanca",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_website",
+            "name": "Peter Suhm",
+            "email": "peter@suhm.dk",
+            "homepage": "http://petersuhm.com",
             "role": "Developer"
         }
     ],
@@ -24,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "League\\Skeleton\\": "src"
+            "Casablanca\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "League\\Skeleton\\Test\\": "tests"
+            "Casablanca\\Test\\": "tests"
         }
     },
     "extra": {
