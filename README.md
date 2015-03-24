@@ -19,6 +19,8 @@ $ composer require wppusher/casablanca
 
 ## Usage
 
+### The container
+
 ```php
 class AwesomeWordPressPlugin extends Casablanca
 {
