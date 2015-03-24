@@ -36,6 +36,9 @@ $plugin->bind('AwesomeWordPress\Database', function()
 
     return new AwesomeWordPress\Database($wpdb);
 });
+
+// Returns instance of 'AwesomeWordPress\Database'
+$db = $plugin->make('AwesomeWordPress\Database');
 ```
 
 ## Testing
