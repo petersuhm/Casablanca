@@ -24,6 +24,14 @@ class AwesomeWordPressPlugin extends Casablanca
 {
     // ...
 }
+
+$plugin = new AwesomeWordPressPlugin;
+
+// Bind services to the container
+$plugin->bind('AwesomeWordPress\Database', function()
+{
+    return new AwesomeWordPress\Database($wpdb);
+});
 ```
 
 ## Testing
