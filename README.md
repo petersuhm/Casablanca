@@ -30,6 +30,8 @@ $plugin = new AwesomeWordPressPlugin;
 // Bind services to the container
 $plugin->bind('AwesomeWordPress\Database', function()
 {
+    global $wpdb;
+
     return new AwesomeWordPress\Database($wpdb);
 });
 ```
