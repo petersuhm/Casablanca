@@ -6,7 +6,7 @@ use Casablanca\Container\Container;
 
 class Casablanca implements Container
 {
-    private $aliases = [];
+    private $aliases = array();
 
     public function bind($alias, $concrete)
     {
