@@ -41,6 +41,12 @@ $plugin->bind('AwesomeWordPress\Database', function()
 $db = $plugin->make('AwesomeWordPress\Database');
 ```
 
+### Events
+
+```php
+// Events stuff coming soon
+```
+
 ## Testing
 
 ``` bash
