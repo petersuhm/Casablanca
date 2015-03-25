@@ -34,4 +34,32 @@ class CasablancaSpec extends ObjectBehavior
         $this->bind('SomeInterface', new StdClass);
         $this->make('SomeInterface')->shouldBeAnInstanceOf('StdClass');
     }
+
+    function it_can_resolve_constructor_dependencies()
+    {
+        $repo = $this->make('spec\Casablanca\PostsRepository')->shouldHaveType('spec\Casablanca\PostsRepository');
+    }
+
+    function it_can_reflect_on_constructor_dependencies_recursively()
+    {
+        $service = $this->make('spec\Casablanca\PostServiceThing')->shouldHaveType('spec\Casablanca\PostServiceThing');
+    }
+}
+
+class PostsRepository
+{
+    private $object;
+    public function __construct(StdClass $object)
+    {
+        $this->object = $object;
+    }
+}
+
+class PostServiceThing
+{
+    private $posts;
+    public function __construct(PostsRepository $posts)
+    {
+        $this->posts = $posts;
+    }
 }
