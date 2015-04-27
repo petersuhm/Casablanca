@@ -37,8 +37,22 @@ $plugin->bind('AwesomeWordPress\Database', function()
     return new AwesomeWordPress\Database($wpdb);
 });
 
-// Returns instance of 'AwesomeWordPress\Database'
+// Returns instance of 'AwesomeWordPress\Database':
 $db = $plugin->make('AwesomeWordPress\Database');
+
+class PostsRepository
+{
+    private $db;
+    public function __construct(AwesomeWordPress\Database $db)
+    {
+        $this->db = $db;
+    }
+}
+
+// Will automatically fetch $db from the previous binding we made,
+// even if we haven't told Casablanca about PostsRepository, since
+// it reflects (recursively) on the constructor:
+$repository = $plugin->make('AwesomeWordPress\PostsRepository);
 ```
 
 ### Events
