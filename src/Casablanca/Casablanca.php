@@ -21,11 +21,11 @@ class Casablanca implements Container
         }
 
         if (isset($this->aliases[$alias]) and is_object($this->aliases[$alias])) {
-            return new $this->aliases[$alias];
+            return $this->aliases[$alias];
         }
 
         if (isset($this->aliases[$alias]) and class_exists($this->aliases[$alias])) {
-            return  new $this->aliases[$alias];
+            return $this->resolve($this->aliases[$alias]);
         }
 
         return $this->resolve($alias);
@@ -50,7 +50,7 @@ class Casablanca implements Container
         $newInstanceParams = [];
 
         foreach ($params as $param) {
-            // Here we should perform a bunch of checks, such as:
+            // @todo Here we should probably perform a bunch of checks, such as:
             // isArray(), isCallable(), isDefaultValueAvailable()
             // isOptional() etc.
 

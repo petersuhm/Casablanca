@@ -37,12 +37,16 @@ class CasablancaSpec extends ObjectBehavior
 
     function it_can_resolve_constructor_dependencies()
     {
-        $repo = $this->make('spec\Casablanca\PostsRepository')->shouldHaveType('spec\Casablanca\PostsRepository');
+        $this
+            ->make('spec\Casablanca\PostsRepository')
+            ->shouldHaveType('spec\Casablanca\PostsRepository');
     }
 
     function it_can_reflect_on_constructor_dependencies_recursively()
     {
-        $service = $this->make('spec\Casablanca\PostServiceThing')->shouldHaveType('spec\Casablanca\PostServiceThing');
+        $this
+            ->make('spec\Casablanca\PostServiceThing')
+            ->shouldHaveType('spec\Casablanca\PostServiceThing');
     }
 }
 
