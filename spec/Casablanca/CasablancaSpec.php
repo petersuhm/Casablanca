@@ -55,14 +55,27 @@ class CasablancaSpec extends ObjectBehavior
         $provider->register($this)->shouldBeCalled();
         $this->register($provider);
     }
+
+    function it_can_fetch_constructor_dependencies_from_bindings()
+    {
+        $concrete = new stdClass;
+        $this->bind('stdClass', $concrete);
+
+        $this->make('spec\Casablanca\PostsRepository')->getObject()->shouldBe($concrete);
+    }
 }
 
 class PostsRepository
 {
     private $object;
-    public function __construct(StdClass $object)
+    public function __construct(stdClass $object)
     {
         $this->object = $object;
+    }
+
+    public function getObject()
+    {
+        return $this->object;
     }
 }
 

@@ -99,7 +99,7 @@ class Casablanca implements Container
                 continue;
             }
 
-            $newInstanceParams[] = $this->resolve(
+            $newInstanceParams[] = $this->make(
                 $param->getClass()->getName()
             );
         }
