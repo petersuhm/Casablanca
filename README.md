@@ -58,12 +58,6 @@ class PostsRepository
 $repository = $plugin->make('AwesomeWordPress\PostsRepository);
 ```
 
-### Events
-
-```php
-// Events stuff coming soon
-```
-
 ## Testing
 
 ``` bash
