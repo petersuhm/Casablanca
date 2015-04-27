@@ -21,7 +21,7 @@ $ composer require wppusher/casablanca
 
 ## Usage
 
-### The container
+### The (IoC) container
 
 ```php
 class AwesomeWordPressPlugin extends Casablanca
@@ -60,8 +60,10 @@ $repository = $plugin->make('AwesomeWordPress\PostsRepository);
 
 ## Testing
 
+This library is designed using PhpSpec.
+
 ``` bash
-$ phpunit
+$ vendor/bin/phpspec run -f pretty
 ```
 
 ## Contributing
