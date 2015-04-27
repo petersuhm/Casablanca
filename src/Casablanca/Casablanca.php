@@ -6,15 +6,40 @@ use Casablanca\Container\Container;
 use Casablanca\Container\ServiceProvider;
 use ReflectionClass;
 
+/**
+ * The Casablanca service container. Extend this class from your
+ * WordPress package.
+ *
+ * @package Casablanca
+ */
 class Casablanca implements Container
 {
+    /**
+     * Service aliases for the Casablanca container.
+     *
+     * @var array
+     */
     private $aliases = array();
 
+    /**
+     * Bind a class name, a class instance or an anonymous function
+     * to the Casablanca service container.
+     *
+     * @param $alias
+     * @param $concrete
+     */
     public function bind($alias, $concrete)
     {
         $this->aliases[$alias] = $concrete;
     }
 
+    /**
+     * Retrieve a service from the container. Dependencies will be
+     * resolved in a recursive manner.
+     *
+     * @param $alias
+     * @return mixed|object
+     */
     public function make($alias)
     {
         if (isset($this->aliases[$alias]) and is_callable($this->aliases[$alias])) {
@@ -32,11 +57,20 @@ class Casablanca implements Container
         return $this->resolve($alias);
     }
 
+    /**
+     * Register a service provider for the container.
+     *
+     * @param ServiceProvider $provider
+     */
     public function register(ServiceProvider $provider)
     {
         $provider->register($this);
     }
 
+    /**
+     * @param $class
+     * @return object
+     */
     private function resolve($class)
     {
         $reflection = new ReflectionClass($class);
