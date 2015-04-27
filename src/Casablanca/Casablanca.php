@@ -3,6 +3,7 @@
 namespace Casablanca;
 
 use Casablanca\Container\Container;
+use Casablanca\Container\ServiceProvider;
 use ReflectionClass;
 
 class Casablanca implements Container
@@ -29,6 +30,11 @@ class Casablanca implements Container
         }
 
         return $this->resolve($alias);
+    }
+
+    public function register(ServiceProvider $provider)
+    {
+        $provider->register($this);
     }
 
     private function resolve($class)

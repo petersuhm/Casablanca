@@ -2,6 +2,7 @@
 
 namespace spec\Casablanca;
 
+use Casablanca\Container\ServiceProvider;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use stdClass;
@@ -47,6 +48,12 @@ class CasablancaSpec extends ObjectBehavior
         $this
             ->make('spec\Casablanca\PostServiceThing')
             ->shouldHaveType('spec\Casablanca\PostServiceThing');
+    }
+
+    function it_can_register_service_providers(ServiceProvider $provider)
+    {
+        $provider->register($this)->shouldBeCalled();
+        $this->register($provider);
     }
 }
 
