@@ -2,10 +2,13 @@
 
 namespace spec\Casablanca;
 
+use Casablanca\Actions\ActionHandler;
 use Casablanca\Container\ServiceProvider;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use stdClass;
+
+require __DIR__ . '/../stubs.php';
 
 class CasablancaSpec extends ObjectBehavior
 {
@@ -63,6 +66,20 @@ class CasablancaSpec extends ObjectBehavior
 
         $this->make('spec\Casablanca\PostsRepository')->getObject()->shouldBe($concrete);
     }
+
+    function it_can_add_a_normal_wordpress_action()
+    {
+        $var = 'var';
+        $callback = function() use ($var) {};
+        $this->addAction('init', $callback, 9, 2)
+            ->shouldReturn(array('init', $callback, 9, 2));
+    }
+
+    function it_can_resolve_an_action_handler_from_the_container()
+    {
+        $this->addAction('init', 'spec\Casablanca\SomeActionHandler', 8, 2)
+            ->shouldBeLike(array('init', array($this->make('spec\Casablanca\SomeActionHandler'), 'handle'), 8, 2));
+    }
 }
 
 class PostsRepository
@@ -85,5 +102,13 @@ class PostServiceThing
     public function __construct(PostsRepository $posts)
     {
         $this->posts = $posts;
+    }
+}
+
+class SomeActionHandler implements ActionHandler
+{
+    public function handle()
+    {
+        //
     }
 }
