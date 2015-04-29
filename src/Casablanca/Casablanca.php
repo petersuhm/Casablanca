@@ -87,7 +87,7 @@ class Casablanca implements Container
             return new $class;
         }
 
-        $newInstanceParams = [];
+        $newInstanceParams = array();
 
         foreach ($params as $param) {
             // @todo Here we should probably perform a bunch of checks, such as:
