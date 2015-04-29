@@ -58,6 +58,72 @@ class PostsRepository
 $repository = $plugin->make('AwesomeWordPress\PostsRepository);
 ```
 
+## Actions (Events)
+
+Actions are like events, which is why it makes sense to be able to add
+dedicated handler classes to your actions. Tying this together with the
+IoC container makes code much cleaner and simpler to write. Let's see
+this in "action".
+
+First, let's create a class `Greeter` that we will use the greet the visitor
+when he visits the website:
+
+```php
+class Greeter
+{
+    public function greet($name = 'World')
+    {
+        $greeting = sprintf('Hello, %s!', $name);
+        var_dump($greeting);
+        die();
+    }
+}
+```
+
+Next, let's create an action handler class that won't execute until
+`do_action()` has been called:
+
+```php
+class GreetVisitorWhenWordPressHasInitiated implements ActionHandler
+{
+    private $greeter;
+
+    public function __construct(Greeter $greeter)
+    {
+        $this->greeter = $greeter;
+    }
+
+    public function handle()
+    {
+        $this->greeter->greet('Peter');
+    }
+}
+```
+
+There is one challenge with this class. It has a dependency, the `Greeter`.
+Normally, we would be forced to do something like this:
+
+```php
+$greeter = new Greeter();
+add_action('init', array(new GreetVisitorWhenWordPressHasInitiated($greeter), 'handle'));
+```
+
+Which is a bit messy. Especially when we have more dependencies. This is how easy
+Casablanca makes this:
+
+```php
+$plugin->addAction('init', 'GreetVisitorWhenWordPressHasInitiated');
+```
+
+As long as the handler class implements the `ActionHandler` interface, Casablanca
+will resolve it out of the IoC container. Of course this still works the old way as well,
+should you need it:
+
+```php
+$greeter = new Greeter();
+$plugin->addAction('init', array(new GreetVisitorWhenWordPressHasInitiated($greeter), 'handle'));
+```
+
 ## Testing
 
 This library is designed using PhpSpec.

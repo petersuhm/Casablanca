@@ -22,6 +22,26 @@ class Casablanca implements Container
     private $aliases = array();
 
     /**
+     * Add a WordPress action. If $handler is the name of a class that
+     * implements ActionHandler, the $handler will be resolved out of
+     * the IoC container.
+     *
+     * @param $tag
+     * @param $handler
+     * @param int $priority
+     * @param int $acceptedArgs
+     * @return array|bool|void
+     */
+    public function addAction($tag, $handler, $priority = 10, $acceptedArgs = 1)
+    {
+        if (array_key_exists('Casablanca\Actions\ActionHandler', class_implements($handler))) {
+            return add_action($tag, array($this->make($handler), 'handle'), $priority, $acceptedArgs);
+        }
+
+        return add_action($tag, $handler, $priority, $acceptedArgs);
+    }
+
+    /**
      * Bind a class name, a class instance or an anonymous function
      * to the Casablanca service container.
      *
@@ -87,7 +107,7 @@ class Casablanca implements Container
             return new $class;
         }
 
-        $newInstanceParams = [];
+        $newInstanceParams = array();
 
         foreach ($params as $param) {
             // @todo Here we should probably perform a bunch of checks, such as:
